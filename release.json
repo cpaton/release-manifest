@@ -1,49 +1,49 @@
 {
-  "Key": "722711e7-0734-4577-bcf1-d85ec30ef4ff",
-  "Name": "0.40.13",
-  "AMI": [
-    {
-      "Name": "notebook",
-      "Type": "git",
-      "Remote": "file:///_cp/Git/notebook",
-      "Ref": "master",
-      "CommitId": "840997ccd397d107e8806f2578d75d5a4e3a9bd9"
-    },
-    {
-      "Name": "powershell",
-      "Type": "git",
-      "Remote": "file:///_cp/Git/PowerShell",
-      "Ref": "2a37b01860cabf5834b87e615887231f31ef5eea",
-      "CommitId": "2a37b01860cabf5834b87e615887231f31ef5eea"
-    },
-    {
-      "Name": "component",
-      "Type": "maven",
-      "Group": "com.company",
-      "ArtifactId": "component",
-      "Version": "0.40.13"
-    },
-    {
-      "Name": "golden-image",
-      "Type": "golden-image",
-      "ImageType": "AmazonLinux2",
-      "Ref": "latest"
-    }
-  ],
-  "Deployment": [
-    {
-      "Name": "notebook",
-      "Type": "git",
-      "Remote": "file:///_cp/Git/notebook",
-      "Ref": "master",
-      "CommitId": "840997ccd397d107e8806f2578d75d5a4e3a9bd9"
-    },
-    {
-      "Name": "aws-cdk",
-      "Type": "git",
-      "Remote": "file:///_cp/Git/aws-cdk",
-      "Ref": "v1.5.0",
-      "CommitId": "c020efa2c21bcc7411c06640ada627b06fa86390"
-    }
-  ]
+    "Key":  "203d651d-5e4d-4f2a-a932-55752adbcc49",
+    "Name":  "0.40.13",
+    "AMI":  [
+                {
+                    "Name":  "notebook",
+                    "Type":  "git",
+                    "Remote":  "file:///_cp/Git/notebook",
+                    "Ref":  "master",
+                    "CommitId":  "840997ccd397d107e8806f2578d75d5a4e3a9bd9"
+                },
+                {
+                    "Name":  "powershell",
+                    "Type":  "git",
+                    "Remote":  "file:///_cp/Git/PowerShell",
+                    "Ref":  "2a37b01860cabf5834b87e615887231f31ef5eea",
+                    "CommitId":  "2a37b01860cabf5834b87e615887231f31ef5eea"
+                },
+                {
+                    "Name":  "component",
+                    "Type":  "maven",
+                    "Group":  "com.company",
+                    "ArtifactId":  "component",
+                    "Version":  "0.40.13"
+                },
+                {
+                    "Name":  "golden-image",
+                    "Type":  "golden-image",
+                    "ImageType":  "AmazonLinux2",
+                    "Ref":  "latest"
+                }
+            ],
+    "Deployment":  [
+                       {
+                           "Name":  "notebook",
+                           "Type":  "git",
+                           "Remote":  "file:///_cp/Git/notebook",
+                           "Ref":  "master",
+                           "CommitId":  "840997ccd397d107e8806f2578d75d5a4e3a9bd9"
+                       },
+                       {
+                           "Name":  "aws-cdk",
+                           "Type":  "git",
+                           "Remote":  "file:///_cp/Git/aws-cdk",
+                           "Ref":  "v1.5.0",
+                           "CommitId":  "c020efa2c21bcc7411c06640ada627b06fa86390"
+                       }
+                   ]
 }
