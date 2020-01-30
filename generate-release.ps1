@@ -1,47 +1,36 @@
 [CmdletBinding()]
-param()
-
-$ErrorActionPreference = "Stop"
-
-New-Item -Path /root/.ssh -ItemType Directory | Out-Null
-cp -R /.ssh /root
-chmod 600 -R /root/.ssh
-# ls -la /root/.ssh
-
-$git = Join-Path $PSScriptRoot "types/git/create.ps1"
-$maven = Join-Path $PSScriptRoot "types/maven/create.ps1"
-$goldenImage = Join-Path $PSScriptRoot "types/golden-image/create.ps1"
-
-$amiInputs = @(
-    & $git notebook file:///_cp/Git/notebook master
-    & $git powershell file:///_cp/Git/PowerShell 2a37b01860cabf5834b87e615887231f31ef5eea
-    & $maven component com.company component 0.40.13
-    & $goldenImage AmazonLinux2
-)
-$deploymentInputs = @(
-    & $git notebook file:///_cp/Git/notebook master
-    & $git aws-cdk file:///_cp/Git/aws-cdk v1.5.0
+param(
+    [Parameter(Mandatory, Position = 1)]
+    [string]
+    $Name,
+    [Parameter(Mandatory, Position = 2)]
+    [scriptblock]
+    $InputGenerator
 )
 
-foreach ($inputList in @($amiInputs, $deploymentInputs))
+$release = [ordered]@{
+    Key = [Guid]::NewGuid().ToString()
+    Name = $Name
+}
+
+$Inputs = & $InputGenerator
+
+foreach ($inputListName in $Inputs.Keys)
 {
-    foreach ($input in $inputList)
+    foreach ($input in $Inputs[$inputListName])
     {
         $typeFolder = Join-Path $PSScriptRoot "types\$($input.Type)"
         $resovle = Join-Path $typeFolder "resolve.ps1"
 
         & $resovle $input
     }
+
+    $release[$inputListName] = $Inputs[$inputListName]
 }
 
-$release = [ordered]@{
-    Key = [Guid]::NewGuid().ToString()
-    Name = "0.40.13"
-    AMI = $amiInputs
-    Deployment = $deploymentInputs
-}
+$release
 
-$releaseJson = ConvertTo-Json $release
-Set-Content -Path /data/release.json -Value $releaseJson
+# $releaseJson = ConvertTo-Json $release
+# Set-Content -Path /data/release.json -Value $releaseJson
 
 

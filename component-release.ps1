@@ -1,5 +1,8 @@
 [CmdletBinding()]
 param(
+    [Parameter(Mandatory)]
+    [string]
+    $Name,
     [Parameter()]
     [string]
     $ComponentRef = $('master')
@@ -7,7 +10,12 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-generate-release 0.40.13 {
+$generateRelease = Join-Path $PSScriptRoot "generate-release.ps1"
+$git = Join-Path $PSScriptRoot "types/git/create.ps1"
+$maven = Join-Path $PSScriptRoot "types/maven/create.ps1"
+$goldenImage = Join-Path $PSScriptRoot "types/golden-image/create.ps1"
+
+& $generateRelease $Name {
     [ordered]@{
         AMI = @(
             & $git notebook file:///_cp/Git/notebook master
