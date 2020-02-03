@@ -5,7 +5,6 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$exec = Join-Path $PSScriptRoot "../../exec.ps1"
 
 if ($Definition.ref -match '[0-9a-f]{40}')
 {
@@ -14,7 +13,7 @@ if ($Definition.ref -match '[0-9a-f]{40}')
 }
 
 $env:GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-$reference = & $exec "git ls-remote --refs --heads --tags --quiet --exit-code $($Definition.remote) $($Definition.ref)" "List remote refs"
+$reference = & $releaseManifestModule.Scripts.Exec "git ls-remote --refs --heads --tags --quiet --exit-code $($Definition.remote) $($Definition.ref)" "List remote refs"
 if ($LASTEXITCODE -ne 0)
 {
     throw "$($Definition.ref) not found in remote $($Definition.remote)"

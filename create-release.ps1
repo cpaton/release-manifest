@@ -15,6 +15,9 @@ cp -R /.ssh /root
 chmod 600 -R /root/.ssh
 # ls -la /root/.ssh
 
+$modulePath = Join-Path $PSScriptRoot "src/ReleaseManifest/ReleaseManifest.psd1"
+Import-Module -Name $modulePath
+
 # c:\_cp -> /_c
 # /data
 # /data/module -> this code
@@ -26,8 +29,7 @@ $releaseTagPrefix = "release-"
 
 
 # Determine the new release name
-$getReleaseName = Join-Path $PSScriptRoot 'get-release-name.ps1'
-$releaseNames = & $getReleaseName -Version $AppVersion -Remote  $releaseRepositoryRemote
+$releaseNames = Get-ReleaseName -Version $AppVersion -Remote $releaseRepositoryRemote
 
 # Get previous release details
 # if ($releaseNames.PreviousRelease)
@@ -50,7 +52,6 @@ $releaseManifest = & $componentRelease -Name $releaseNames.Release
 $releaseManifest | ConvertTo-Json
 
 # Publish release manifest with tags
-$addReleaseToGit = Join-Path $PSScriptRoot "add-release-to-git.ps1"
-& $addReleaseToGit -ReleaseManifest $releaseManifest -PreviousReleaseName $releaseNames.PreviousRelease -Root /data -TagPrefix $releaseTagPrefix -GitRemote $releaseRepositoryRemote
+Add-ReleaseManifestToGit -ReleaseManifest $releaseManifest -PreviousReleaseName $releaseNames.PreviousRelease -Root /data -TagPrefix $releaseTagPrefix -GitRemote $releaseRepositoryRemote
 
 # Get release
