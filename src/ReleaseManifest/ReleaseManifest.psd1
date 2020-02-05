@@ -61,7 +61,12 @@ Description = 'Utilities for consistent release of applications'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('New-ReleaseManifest', 'Add-ReleaseManifestToGit', 'Get-ReleaseName')
+FunctionsToExport = @(
+    'New-ReleaseManifest', 'Add-ReleaseManifestToGit', 'Get-ReleaseName',
+    'New-GitInput', 'Resolve-GitInput', 'Get-GitInput'
+    'New-GoldenImageInput', 'Resolve-GoldenImageInput', 'Get-GoldenImageInput'
+    'New-MavenInput', 'Resolve-MavenInput', 'Get-MavenInput'
+)
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()

@@ -14,5 +14,5 @@ param()
         $Settings.Scripts = @{
             Exec = Join-Path $Settings.Root "scripts/Exec"
         }
-        $Settings.TypesRoot = Join-Path $Settings.Root "types"    
+        $Settings.TypesRoot = Join-Path $Settings.Root "input-types"    
     }

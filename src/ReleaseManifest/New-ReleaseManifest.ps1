@@ -13,6 +13,7 @@ function New-ReleaseManifest()
     $release = [ordered]@{
         Key = [Guid]::NewGuid().ToString()
         Name = $Name
+        Inputs = [ordered]@{}
     }
 
     $Inputs = & $InputGenerator
@@ -21,13 +22,11 @@ function New-ReleaseManifest()
     {
         foreach ($input in $Inputs[$inputListName])
         {
-            $typeFolder = Join-Path $PSScriptRoot "types\$($input.Type)"
-            $resovle = Join-Path $typeFolder "resolve.ps1"
-
+            $resovle = "Resolve-$($input.Type)Input"
             & $resovle $input
         }
 
-        $release[$inputListName] = $Inputs[$inputListName]
+        $release.Inputs.$inputListName = $Inputs[$inputListName]
     }
 
     $release
