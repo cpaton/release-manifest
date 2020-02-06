@@ -71,7 +71,7 @@ function Add-ReleaseManifestToGit
         }
 
         # Generate release manifest
-        Set-Content -Path "release.json" -Value ( ConvertTo-Json $ReleaseManifest | Out-String ) -Force
+        Set-Content -Path "release.json" -Value ( ConvertTo-Json $ReleaseManifest -Depth 20 | Out-String ) -Force
 
         # Commit + Tag
         $tagName = "$TagPrefix$($ReleaseManifest.Name)"

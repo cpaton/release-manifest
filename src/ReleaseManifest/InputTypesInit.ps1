@@ -6,5 +6,6 @@ $initScriptBlocks += {
         . ( Join-Path $typeFolder.FullName "new.ps1" )
         . ( Join-Path $typeFolder.FullName "get.ps1" )
         . ( Join-Path $typeFolder.FullName "resolve.ps1" )
+        . ( Join-Path $typeFolder.FullName "compare.ps1" )
     }
 }

@@ -49,7 +49,7 @@ $releaseNames = Get-ReleaseName -Version $AppVersion -Remote $releaseRepositoryR
 # Generate the release.json file using name
 $componentRelease = Join-Path $PSScriptRoot "component-release.ps1"
 $releaseManifest = & $componentRelease -Name $releaseNames.Release
-$releaseManifest | ConvertTo-Json
+$releaseManifest | ConvertTo-Json -Depth 20
 
 # Publish release manifest with tags
 Add-ReleaseManifestToGit -ReleaseManifest $releaseManifest -PreviousReleaseName $releaseNames.PreviousRelease -Root /data -TagPrefix $releaseTagPrefix -GitRemote $releaseRepositoryRemote
