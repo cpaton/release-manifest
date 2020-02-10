@@ -67,18 +67,22 @@ FunctionsToExport = @(
     'Compare-GitInput'
     'Compare-GoldenImageInput'
     'Compare-MavenInput'
+    'Compare-PowerShellModuleInput'
     'Compare-ReleaseComponent'
     'Get-GitInput'
     'Get-GoldenImageInput'
     'Get-MavenInput'
+    'Get-PowerShellModuleInput'
     'Get-ReleaseName'
     'New-GitInput'
     'New-GoldenImageInput'
     'New-MavenInput'
+    'New-PowerShellModuleInput'
     'New-ReleaseManifest'
     'Resolve-GitInput'
     'Resolve-GoldenImageInput'
     'Resolve-MavenInput'
+    'Resolve-PowerShellModuleInput'
 )
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
