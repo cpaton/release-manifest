@@ -18,6 +18,7 @@ New-ReleaseManifest $Name {
             New-GitInput powershell file:///_cp/Git/PowerShell 2a37b01860cabf5834b87e615887231f31ef5eea
             New-MavenInput component com.company component 0.40.13
             New-GoldenImageInput AmazonLinux2
+            New-PowerShellModuleInput Creds PSCredentialStore
         )
         Deployment = @(
             New-GitInput notebook file:///_cp/Git/notebook master

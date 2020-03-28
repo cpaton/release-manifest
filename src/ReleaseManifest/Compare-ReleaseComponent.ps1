@@ -1,11 +1,24 @@
+<#
+.SYNOPSIS
+Compares two release components to see if their inputs are identical
+
+.DESCRIPTION
+Typically used to determine if an existing release output can be re-used for a new release
+The inputs to a component should define the output exactly and be deterministic.  If the inputs
+are the same the output should be the same
+#>
 function Compare-ReleaseComponent
 {
     [CmdletBinding()]
+    [OutputType([bool])]
     param(
+        # New release manifest
         [Parameter(Mandatory, Position = 1)]
         $ReleaseManifest,
+        # Previous release manifest
         [Parameter(Mandatory, Position = 2)]
         $OtherReleaseManifest,
+        # Name of the component to compare
         [Parameter(Mandatory, Position = 3)]
         [string]
         $ComponentName

@@ -29,7 +29,7 @@ $releaseTagPrefix = "release-"
 
 
 # Determine the new release name
-$releaseNames = Get-ReleaseName -Version $AppVersion -Remote $releaseRepositoryRemote
+$releaseNames = Get-ReleaseName -Version $AppVersion -GitRemote $releaseRepositoryRemote -TagPrefix $releaseTagPrefix
 
 # Get previous release details
 # if ($releaseNames.PreviousRelease)

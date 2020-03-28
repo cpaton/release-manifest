@@ -18,7 +18,7 @@ function New-PowerShellModuleInput
 
     [ordered]@{
         Name = $Name
-        Type = "PowerShell"
+        Type = "PowerShellModule"
         PSRepository = $PSRepository
         ModuleName = $ModuleName
         Scope = $Scope

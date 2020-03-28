@@ -1,40 +1,49 @@
+<#
+.SYNOPSIS
+Determines the name for a release based on its version and previous releases
+
+.DESCRIPTION
+Release names are primarily based on the application version.  The first release for a version
+is named after that version directly.
+
+If a patch is applied where the same application version is used but other release inputs are changed
+e.g. configuration settings the release name is based on the application version with a suffix
+#>
 function Get-ReleaseName
 {
     [CmdletBinding()]
     [OutputType([hashtable])]
     param(
-        [Parameter()]
+        # Primary version number for the release.  Typically the application binary version
+        [Parameter(Mandatory)]
         [version]
-        $Version = $("0.40.13"),
-        [Parameter()]
+        $Version,
+        # Git repository used to store release manifests
+        [Parameter(Mandatory)]
         [string]
-        $Remote = $("file:///c/_cp/Git/component-repo")
+        $GitRemote,
+        # Prefix to be added to the tag in Git for the release.
+        # The Git repository doesn't need to be available locally, all queries are made against the remote copy
+        # Git does need to be configured to be able to query the remote e.g. with credentials
+        [Parameter(Mandatory)]
+        [string]
+        $TagPrefix
     )
 
     $ErrorActionPreference = "Stop"
-    $tagPrefix = "release-"
 
     # Releases are tagged as {prefix}{version}{optional revision}
     # e.g. release-0.40.13
     #      release-0.40.13-1
     #      release-0.40.14
 
-    $releaseTagRefs = & $releaseManifestModule.Scripts.Exec "git ls-remote --refs --tags --quiet $Remote refs/tags/$tagPrefix*"
+    $releaseTagRefs = & $releaseManifestModule.Scripts.Exec "git ls-remote --refs --tags --quiet $GitRemote refs/tags/$TagPrefix*"
     $releaseTags = $releaseTagRefs | 
         ForEach-Object {
             ParseGitRef $_
         } |
         Where-Object { $_ } |
         ForEach-Object { $_.Ref -replace 'refs/tags/','' }
-
-    # $releaseTags = @(
-    #     '0.40.11',
-    #     '0.40.13-2',
-    #     '0.40.12',
-    #     '0.40.13',
-    #     '0.40.13-1',
-    #     '0.40.15'
-    # )
 
     $previousRelease = $null
 

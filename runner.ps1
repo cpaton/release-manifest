@@ -14,8 +14,8 @@ docker container run --rm -it ``
 release-generation:latest ``
 /data/module/create-release.ps1 -AppVersion 0.40.13 -Verbose
 "@
-    Write-Host $dockerCommand
-    Invoke-Expression $dockerCommand
+Write-Host $dockerCommand
+Invoke-Expression $dockerCommand
 
 # if ($Generate)
 # {
